@@ -7,7 +7,7 @@ Students MUST EDIT this module, to add more tests to run
 against the 'echo.py' program.
 """
 
-__author__ = "???"
+__author__ = "Meagan Ramey"
 
 import sys
 import importlib
@@ -69,8 +69,13 @@ class TestEcho(unittest.TestCase):
     # - If you enable one option as true, are the rest false?
     #
     def test_parser_namespace(self):
-        # your code here
-        self.fail()  # replace me
+        parser_func = self.module.create_parser()
+        parsed_upper = parser_func.parse_args(['test', '-u'])
+        parsed_lower = parser_func.parse_args(['test', '-l'])
+        parsed_title = parser_func.parse_args(['test', '-t'])
+        self.assertTrue(parsed_upper.upper)
+        self.assertTrue(parsed_lower.lower)
+        self.assertTrue(parsed_title.title)
 
     def test_echo(self):
         """Check if main() function prints anything at all"""
@@ -84,7 +89,7 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(
             output[0], args[0],
             "The program is not performing simple echo"
-            )
+        )
 
     def test_lower_short(self):
         """Check if short option '-l' performs lowercasing"""
@@ -106,8 +111,9 @@ class TestEcho(unittest.TestCase):
         self.fail()  # replace me
 
     def test_upper_long(self):
-        # your code here
-        self.fail()  # replace me
+        parser = self.module.create_parser()
+        parsed = parser.parse_args(['test', '--upper'])
+        self.assertEqual(parsed.upper, 'TEST')
 
     def test_title_short(self):
         # your code here
