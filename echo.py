@@ -32,8 +32,21 @@ def main(args):
     """Implementation of echo"""
     parser = create_parser()
     name_space = parser.parse_args(args)
-    print(name_space)
-    return
+    if not name_space:
+        parser.print_usage()
+        sys.exit(1)
+    word = name_space.text[0]
+    up = name_space.upper
+    lw = name_space.lower
+    title = name_space.title
+    if up:
+        word = word.upper()
+    if lw:
+        word = word.lower()
+    if title:
+        word = word.title()
+
+    print(word)
 
 
 if __name__ == '__main__':

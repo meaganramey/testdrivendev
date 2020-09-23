@@ -116,9 +116,9 @@ class TestEcho(unittest.TestCase):
 
     def test_upper_long(self):
         """Check if long option '--upper' performs upperercasing"""
-        parser = self.module.create_parser()
-        parsed = parser.parse_args(['test', '--upper'])
-        self.assertEqual(parsed.upper, 'TEST')
+        args = ['--upper', 'hello world']
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'HELLO WORLD')
 
     def test_title_short(self):
         """Check if short option '-t' performs titlecasing"""
