@@ -103,49 +103,78 @@ class TestEcho(unittest.TestCase):
     #
 
     def test_lower_long(self):
-        # your code here
-        self.fail()  # replace me
+        """Check if long option '--lower' performs lowercasing"""
+        args = ["--lower", "HELLO WORLD"]
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], "hello world")
 
     def test_upper_short(self):
-        # your code here
-        self.fail()  # replace me
+        """Check if short option '-u' performs uppercasing"""
+        args = ["-u", "hello world"]
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], "HELLO WORLD")
 
     def test_upper_long(self):
+        """Check if long option '--upper' performs upperercasing"""
         parser = self.module.create_parser()
         parsed = parser.parse_args(['test', '--upper'])
         self.assertEqual(parsed.upper, 'TEST')
 
     def test_title_short(self):
-        # your code here
-        self.fail()  # replace me
+        """Check if short option '-t' performs titlecasing"""
+        args_cap = ["-t", "HELLO WORLD"]
+        output_cap = run_capture(self.module.__file__, args_cap)
+        self.assertEqual(output_cap[0], "Hello World")
+        args_low = ["-t", "hello world"]
+        output_low = run_capture(self.module.__file__, args_low)
+        self.assertEqual(output_low[0], "Hello World")
 
     def test_title_long(self):
-        # your code here
-        self.fail()  # replace me
+        """Check if long option '--title' performs titlecasing"""
+        args_cap = ["--title", "HELLO WORLD"]
+        output_cap = run_capture(self.module.__file__, args_cap)
+        self.assertEqual(output_cap[0], "Hello World")
+        args_low = ["--title", "hello world"]
+        output_low = run_capture(self.module.__file__, args_low)
+        self.assertEqual(output_low[0], "Hello World")
 
     def test_multiple_options(self):
-        # your code here
-        self.fail()  # replace me
+        """Check if multiple options perform correctly"""
+        args_cap = ["-tl", "HELLO WORLD"]
+        output_cap = run_capture(self.module.__file__, args_cap)
+        self.assertEqual(output_cap[0], "Hello World")
+        args_low = ["--title", "Hello World"]
+        output_low = run_capture(self.module.__file__, args_low)
+        self.assertEqual(output_low[0], "Hello World")
 
     def test_help_message(self):
-        # your code here
-        self.fail()  # replace me
+        with open('USAGE') as f:
+            usage = f.read().splitlines()
+        args = ['-h']
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output, usage)
 
     #
     # Students: add a flake8 test here.
     # You may borrow some test code from previous assignments!
     #
+
     def test_flake8(self):
-        # your code here
-        self.fail()  # replace me
+        """Checking for PEP8/flake8 compliance"""
+        result = subprocess.run(['flake8', self.module.__file__])
+        self.assertEqual(result.returncode, 0)
 
     #
     # Students: add an __author__ test here.
     # You may borrow some test code from previous assignments!
     #
     def test_author(self):
-        # your code here
-        self.fail()  # replace me
+        """Checking for author string"""
+        self.assertIsNotNone(self.module.__author__)
+        self.assertNotEqual(
+            self.module.__author__, "???",
+            "Author string is not completed"
+        )
 
 
 if __name__ == '__main__':

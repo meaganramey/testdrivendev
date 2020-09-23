@@ -12,20 +12,18 @@ import argparse
 def create_parser():
     """Returns an instance of argparse.ArgumentParser"""
     parser = argparse.ArgumentParser(
-        description="Transforms user's text based upon input commands.")
+        description="Perform transformation on input text.")
     parser.add_argument(
-        'word', nargs=1,
-        help='the word or phrase to be echoed in the terminal')
+        'text', nargs=1,
+        help='text to be manipulated')
     parser.add_argument(
-        '-u', '--upper', help='Change each letter to uppercase',
+        '-u', '--upper', help='convert text to uppercase',
         action='store_true')
     parser.add_argument(
-        '-l', '--lower', help='Change each letter to lowercase',
+        '-l', '--lower', help='convert text to lowercase',
         action='store_true')
     parser.add_argument(
-        '-t', '--title', help='''Tile case word or pharse.
-                                Example: \n
-                                example phrase --> Example Phrase''',
+        '-t', '--title', help='convert text to titlecase',
         action='store_true')
     return parser
 
